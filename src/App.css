@@ -1,0 +1,105 @@
+@font-face {
+	font-family: 'Trench';
+	src: url(./fonts/Trench.otf);
+}
+
+@font-face {
+	font-family: 'Megaton';
+	src: url(./fonts/Megaton.ttf);
+}
+
+body {
+    font-family: 'Trench';
+    background-color: rgb(226, 225, 225);
+}
+
+/*
+.app__intro {
+	font-size: 72px;
+	position: absolute;
+	left: 50%;
+	top: 40%;
+	font-family: "Trench";
+	width: 660px;
+	height: 100px;
+	margin-left: -330px;
+	margin-top: -50px;
+	opacity: 1;
+	animation: fadeIn 2s ease;
+}*/
+
+@keyframes fadeIn{
+	0%{
+	  opacity: 0;
+	}
+	100%{
+	  opacity: 1;
+	}
+  }
+
+.navbar{
+	background-color: #444444;
+	border-color: #444444;
+	border-radius: 0px;
+	position: fixed;
+	width: 100%;
+	z-index: 99;
+}
+
+.header-logo {
+	left: 1%;
+	position: fixed;
+	margin-top: -3px;
+	width: 250px;
+}
+
+.header-logo img {
+	float: left;
+}
+
+.header-logo span{
+	display: inline-block;
+	color: white;
+	margin-left: 6px;
+	font-family: "Megaton";
+	font-size: 26px;
+    font-weight: bold;
+    -webkit-text-stroke: 0.05px rgb(109, 167, 253);
+}
+
+#header-logo-img {
+	margin-top: -5px;
+    margin-right: 5px;
+    -webkit-filter: drop-shadow(1px 1px 0 rgb(109, 167, 253))
+                    drop-shadow(-1px 1px 0 rgb(109, 167, 253))
+                    drop-shadow(1px -1px 0 rgb(109, 167, 253))
+                    drop-shadow(-1px -1px 0 rgb(109, 167, 253));
+
+	filter: drop-shadow(1px 1px 0 rgb(109, 167, 253)) 
+	        drop-shadow(-1px 1px 0 rgb(109, 167, 253))
+		    drop-shadow(1px -1px 0 rgb(109, 167, 253))
+       		drop-shadow(-1px -1px 0 rgb(109, 167, 253));
+}
+
+
+.header-search-container {
+	left: 42%;
+	display: block;
+	position: fixed;
+	width: 400px;
+	margin-top: -3px;
+}
+
+ .header-search-input {
+	width: 200px;
+} 
+
+#header-search-button {
+	margin-left: 10px;
+	color: white;
+	border-color: white;
+	font-size: 12px;
+	/* font-size: 14px;
+	font-family: "Trench"; 
+	padding: 0px 5px 0px 5px; */
+} 
