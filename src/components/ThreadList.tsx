@@ -24,6 +24,7 @@ interface IProps {
 interface IState {
     indexes1: any
     indexes2: any
+    open: boolean
 }
 
 export default class ThreadList extends React.Component<IProps, IState, {}> {
@@ -32,11 +33,13 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
 
         this.state = {
             indexes1: {},
-            indexes2: {}
+            indexes2: {},
+            open: false
         }
 
         this.handleClick = this.handleClick.bind(this)
         this.handleShow = this.handleShow.bind(this)
+        this.editThread = this.editThread.bind(this)
     }
 
     public render () {
@@ -61,9 +64,7 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
                                         image={thread.url}
                                     />
                                     <CardContent>
-                                        <Typography className="threadlist-user">
-                                            {thread.user}
-                                        </Typography>
+                                        <Typography className="threadlist-user" children={thread.user} />
                                     </CardContent>
                                     <div className="threadlist-expand-icons">
                                         {this.state.indexes1[index] ? <ExpandLess /> : <ExpandMore />}
@@ -74,16 +75,14 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
                                     <div className="thread-information">
                                         <Divider />
                                         <CardContent>
-                                            <Typography component="p" className="thread-content">
-                                                {thread.content}
-                                            </Typography>
+                                            <Typography className="thread-content" variant="body1" children={thread.content} />
 
                                             <div className="thread-options">
-                                                <Button variant="outlined" id="thread-options-edit" onClick={this.handleShow(index)}>
+                                                <Button variant="outlined" id="thread-options-edit" onClick={this.onOpenModal}>
                                                     Edit
                                                 </Button>
                                                 <IconButton aria-label="Delete" id="thread-options-delete">
-                                                    <DeleteIcon />
+                                                    <DeleteIcon onClick={this.deleteThread.bind(this, thread.id)}/>
                                                 </IconButton>
                                             </div>
                                         </CardContent>
@@ -91,8 +90,8 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
 
                                     <div className="thread-edit-window">
                                         <Dialog
-                                            open={this.state.indexes2[index]}
-                                            onClose={this.handleShow(index)}
+                                            open={this.state.open}
+                                            onClose={this.onCloseModal}
                                             aria-labelledby="thread-edit-window-title"
                                         >
                                             <DialogTitle id="thread-edit-window-title">Edit Thread</DialogTitle>
@@ -101,20 +100,35 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
                                                     Make any changes to the thread here.
                                                 </DialogContentText>
                                                 <TextField
-                                                autoFocus={true}
-                                                margin="normal"
-                                                id="name"
-                                                label="Title"
-                                                type="text"
-                                                fullWidth={true}
+                                                    autoFocus={true}
+                                                    margin="normal"
+                                                    id="edit-title"
+                                                    label="Title"
+                                                    type="text"
+                                                    fullWidth={true}
+                                                    defaultValue={thread.title}
+                                                />
+
+                                                <TextField
+                                                    autoFocus={true}
+                                                    margin="normal"
+                                                    id="edit-content"
+                                                    label="Content"
+                                                    type="text"
+                                                    fullWidth={true}
+                                                    defaultValue={thread.content}
+                                                    multiline={true}
+                                                    rows={10}
+                                                    rowsMax={10}
                                                 />
                                             </DialogContent>
+
                                             <DialogActions>
-                                                <Button onClick={this.handleShow(index)} >
-                                                Cancel
+                                                <Button onClick={this.onCloseModal} >
+                                                    Cancel
                                                 </Button>
-                                                <Button onClick={this.handleShow(index)} >
-                                                Subscribe
+                                                <Button onClick={this.editThread(index)} >
+                                                    Confirm
                                                 </Button>
                                             </DialogActions>
                                         </Dialog>
@@ -143,7 +157,74 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
 			const data = Object.assign({}, prevState.indexes2) 
 			data[index] = !data[index] 
 			return {indexes2: data}
-		}); 
-	}
+        }); 
+        console.log(this.state.indexes2[index])
+    }
+
+    // Modal Open
+    private onOpenModal = () => {
+        this.setState({ open: true });
+	  };
+    
+    // Modal Close
+    private onCloseModal = () => {
+		this.setState({ open: false });
+	};
+    
+    // PUT Thread
+    private editThread = (index : any) => () => {
+        this.handleShow(index)
+        const titleInput = document.getElementById("edit-title") as HTMLInputElement
+        const contentInput = document.getElementById("edit-content") as HTMLInputElement
+
+        if (titleInput === null || contentInput === null) {
+			return;
+        }
+        
+        const currentThread = this.props.threads[index]
+        const url = "https://phantomapi.azurewebsites.net/api/Phantom/" + currentThread.id
+        const updatedTitle = titleInput.value
+        const updatedContent = contentInput.value
+		fetch(url, {
+			body: JSON.stringify({
+                "content": updatedContent,
+                "height": currentThread.height,
+                "id": currentThread.id,
+                "title": updatedTitle,
+                "uploaded": currentThread.uploaded,
+                "url": currentThread.url,
+                "user:": currentThread.user,
+                "width": currentThread.width
+            }),
+			headers: {'cache-control': 'no-cache','Content-Type': 'application/json'},
+			method: 'PUT'
+		})
+        .then((response : any) => {
+			if (!response.ok) {
+				// Error State
+				alert(response.statusText + " " + url)
+			} else {
+				location.reload()
+			}
+		  })
+    }
+
+    // DELETE Thread
+    private deleteThread(id: any) {
+        const url = "https://phantomapi.azurewebsites.net/api/Phantom/" + id
+
+		fetch(url, {
+			method: 'DELETE'
+		})
+        .then((response : any) => {
+			if (!response.ok) {
+				// Error Response
+				alert(response.statusText)
+			}
+			else {
+              location.reload()
+			}
+		  })
+    }
 }
 
