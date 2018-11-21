@@ -9,8 +9,7 @@ interface IState {
     error: string
     open: boolean,
     threads: any[],
-    value: string
-    
+    value: string,
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -38,11 +37,12 @@ export default class App extends React.Component<{}, IState> {
             <ThreadList 
                 error={this.state.error}
                 threads={this.state.threads}
-                value={this.state.value}
+                value={this.state.value} 
             />
 		</div>
 		);
     }
+
 
     // GET thread posts
 	private fetchThreads(user: any) {
@@ -68,8 +68,6 @@ export default class App extends React.Component<{}, IState> {
 			this.setState({
                 threads: json
             })
-            console.log(threadList)
-            console.log(url)
             console.log(json)
         });
 	}

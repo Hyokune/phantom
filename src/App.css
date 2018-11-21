@@ -203,3 +203,64 @@ body {
     font-weight: bold;
     padding: 1px 1px;
 }
+
+#thread-new-window-upload-icon {
+    margin-left: 4px;
+}
+/*
+#thread-new-image-input {
+    display: none;
+}*/
+
+#thread-image {
+    height: 100px;
+}
+
+#thread-edit-window-title h2 {
+    font-size: 18px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+#thread-edit-window-text {
+    font-size: 14px !important;
+    font-family: 'Work Sans', sans-serif;
+}
+
+#edit-title, #edit-content {
+    font-size: 16px !important;
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.1em;
+}
+
+.thread-edit-window-label label {
+    font-size: 14px !important;
+    font-family: 'Jura', sans-serif;
+    font-weight: bold;
+}
+
+#thread-new-window-title h2 {
+    font-size: 18px;
+    font-family: 'Work Sans', sans-serif;
+}
+
+#thread-new-window-text {
+    font-size: 14px !important;
+    font-family: 'Work Sans', sans-serif;
+}
+
+#new-title, #new-content {
+    font-size: 16px !important;
+    font-family: 'Work Sans', sans-serif;
+    line-height: 1.1em;
+}
+
+.thread-new-window-label label {
+    font-size: 14px !important;
+    font-family: 'Jura', sans-serif !important;
+}
+
+#thread-window-button {
+    font-size: 16px;
+    font-family: 'Jura', sans-serif;
+    font-weight: bold;
+}

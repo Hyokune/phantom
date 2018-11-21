@@ -6,6 +6,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
+// import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import * as React from 'react';
 import { Navbar } from 'react-bootstrap';
 import logo from '../images/phantomLogo.png';
@@ -15,7 +16,8 @@ interface IProps {
 }
 
 interface IState {
-    open: boolean
+    open: boolean,
+    uploadFileList: any
 }
 
 export default class Header extends React.Component<IProps, IState, {}> {
@@ -23,10 +25,13 @@ export default class Header extends React.Component<IProps, IState, {}> {
         super(props)
 
         this.state = {
-            open: false
+            open: false,
+            uploadFileList: null
         }
 
         this.searchUser = this.searchUser.bind(this)
+        this.handleImageUpload = this.handleImageUpload.bind(this)
+        this.postNewThread = this.postNewThread.bind(this)
     }
 
     public render () {
@@ -67,42 +72,48 @@ export default class Header extends React.Component<IProps, IState, {}> {
                         <Dialog
                             open={this.state.open}
                             onClose={this.onCloseModal}
-                            aria-labelledby="thread-edit-window-title"
+                            aria-labelledby="thread-new-window-title"
                         >
-                            <DialogTitle id="thread-edit-window-title">Edit Thread</DialogTitle>
+                            <DialogTitle id="thread-new-window-title">Post New Thread</DialogTitle>
                             <DialogContent>
-                                <DialogContentText id="thread-edit-window-text">
-                                    Make any changes to the thread here.
+                                <DialogContentText id="thread-new-window-text">
+                                    Post a new thread here.
                                 </DialogContentText>
-                                <TextField
-                                    autoFocus={true}
-                                    margin="normal"
-                                    id="edit-title"
-                                    label="Title"
-                                    type="text"
-                                    fullWidth={true}
-                                    
-                                />
+                                <div className="thread-new-window-label">
+                                    <TextField
+                                        autoFocus={true}
+                                        margin="normal"
+                                        id="new-title"
+                                        label="Title"
+                                        type="text"
+                                        fullWidth={true}
+                                        
+                                    />
 
-                                <TextField
-                                    autoFocus={true}
-                                    margin="normal"
-                                    id="edit-content"
-                                    label="Content"
-                                    type="text"
-                                    fullWidth={true}
+                                    <TextField
+                                        autoFocus={true}
+                                        margin="normal"
+                                        id="new-content"
+                                        label="Content"
+                                        type="text"
+                                        fullWidth={true}
+                                        
+                                        multiline={true}
+                                        rows={10}
+                                        rowsMax={10}
+                                    />
+                                </div>
+                                <div className="thread-new-window-upload-container">
+                                    <input type="file" onChange={this.handleImageUpload} id="thread-new-image-input" />
                                     
-                                    multiline={true}
-                                    rows={10}
-                                    rowsMax={10}
-                                />
+                                </div>
                             </DialogContent>
 
                             <DialogActions>
-                                <Button onClick={this.onCloseModal} >
+                                <Button onClick={this.onCloseModal} id="thread-window-button">
                                     Cancel
                                 </Button>
-                                <Button onClick={this.onCloseModal} >
+                                <Button onClick={this.postNewThread} id="thread-window-button">
                                     Confirm
                                 </Button>
                             </DialogActions>
@@ -121,11 +132,76 @@ export default class Header extends React.Component<IProps, IState, {}> {
         const user = textBox.value 
         this.props.searchUser(user)  
     }
-    /*
-    private newThread() {
-        // TODO
-    }*/
+    
+    // POSTS new thread
+    private postNewThread() {
+        const titleInput = document.getElementById("new-title") as HTMLInputElement
+        const contentInput = document.getElementById("new-content") as HTMLInputElement
 
+		if (titleInput === null || contentInput === null) {
+			return;
+        }
+        
+        const formData = new FormData()
+        const url = "https://phantomapi.azurewebsites.net/api/Phantom/upload"
+        const urlnoimg = "https://phantomapi.azurewebsites.net/api/Phantom/upload/noimg"
+        if (this.state.uploadFileList !== null) {
+            const imageFile = this.state.uploadFileList[0]
+            const title = titleInput.value
+            const content = contentInput.value
+
+            formData.append("Title", title)
+            formData.append("Content", content)
+            formData.append("Image", imageFile)
+            formData.append("User", "Hades")
+
+            fetch(url, {
+                body: formData,
+                headers: {'cache-control': 'no-cache'},
+                method: 'POST'
+            })
+            .then((response : any) => {
+                if (!response.ok) {
+                    // Error State
+                    alert(response.statusText)
+                } else {
+                    location.reload()
+                }
+              })
+
+        } else {
+            const title = titleInput.value
+            const content = contentInput.value
+
+            formData.append("Title", title)
+            formData.append("Content", content)
+            formData.append("User", "Hades")
+
+            fetch(urlnoimg, {
+                body: formData,
+                headers: {'cache-control': 'no-cache'},
+                method: 'POST'
+            })
+            .then((response : any) => {
+                if (!response.ok) {
+                    // Error State
+                    alert(response.statusText)
+                } else {
+                    location.reload()
+                }
+              })
+        }
+  
+		
+    }
+
+    // Sets file list
+	private handleImageUpload(fileList: any) {
+		this.setState({
+			uploadFileList: fileList.target.files
+		})
+    }
+    
     // Modal open
 	private onOpenModal = () => {
 		this.setState({ open: true });
@@ -134,5 +210,7 @@ export default class Header extends React.Component<IProps, IState, {}> {
 	// Modal close
 	private onCloseModal = () => {
 		this.setState({ open: false });
-	};
+    };
+    
+    
 }
