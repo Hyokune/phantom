@@ -16,72 +16,80 @@ body {
     background-attachment: fixed;
     background-position: center; 
     overflow: hidden;*/
-
 }
 
-@keyframes fadeIn{
-	0%{
-	  opacity: 0;
-	}
-	100%{
-	  opacity: 1;
-	}
-  }
-
-.navbar{
-	background-color: #444444;
-	border-color: #444444;
-	border-radius: 0px;
-	position: fixed;
-    width: 100%;
-	z-index: 99;
+#login-logo-img {
+    height: 200px;
 }
 
-.header-logo {
-	left: 1%;
-	position: fixed;
-	margin-top: -3px;
-	width: 250px;
-}
-
-.header-logo img {
-	float: left;
-}
-
-.header-logo span{
-	display: inline-block;
+.login-logo {
 	color: white;
-	margin-left: 6px;
+	margin: 0 auto;
 	font-family: "Megaton";
 	font-size: 26px;
     font-weight: bold;
     -webkit-text-stroke: 0.05px rgb(109, 167, 253);
+    width: 154px;
+
+}
+
+.navbar{
+    background-color: #444444;
+    border-color: #444444;
+    border-radius: 0px;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    z-index: 99;
+}
+
+.header-logo {
+    position: absolute;
+    width: 230px;
+    height: 50px;
+    left: 1%;
+}
+
+.header-logo img {
+    display: inline-block;
+    margin-top: -8px;
 }
 
 #header-logo-img {
-	margin-top: -5px;
-    margin-right: 5px;
     -webkit-filter: drop-shadow(1px 1px 0 rgb(109, 167, 253))
                     drop-shadow(-1px 1px 0 rgb(109, 167, 253))
                     drop-shadow(1px -1px 0 rgb(109, 167, 253))
                     drop-shadow(-1px -1px 0 rgb(109, 167, 253));
 
-	filter: drop-shadow(1px 1px 0 rgb(109, 167, 253)) 
-	        drop-shadow(-1px 1px 0 rgb(109, 167, 253))
-		    drop-shadow(1px -1px 0 rgb(109, 167, 253))
-       		drop-shadow(-1px -1px 0 rgb(109, 167, 253));
+    filter: drop-shadow(1px 1px 0 rgb(109, 167, 253)) 
+            drop-shadow(-1px 1px 0 rgb(109, 167, 253))
+            drop-shadow(1px -1px 0 rgb(109, 167, 253))
+               drop-shadow(-1px -1px 0 rgb(109, 167, 253));
 }
 
+.header-logo span{
+    display: none;
+    color: white;
+    margin-left: 6px;
+    margin-right: 0px;
+    font-family: "Megaton";
+    font-size: 26px;
+    font-weight: bold;
+    -webkit-text-stroke: 0.05px rgb(109, 167, 253);
+}
 
 .header-search-container {
-	left: 42%;
+	left: 36%;
 	display: block;
-	position: fixed;
-	width: 400px;
-	margin-top: -3px;
+	position: absolute;
+	width: 300px;
+    margin-top: -3px;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
-#search-user-textbox {
+#search-box {
+    display: none;
     font-family: 'Jura', sans-serif;
     width: 200px;
     color: white;
@@ -89,9 +97,18 @@ body {
     padding-bottom: 0px;
     margin-top: 8px;
     font-weight: bold;
-    /* background-color: rgb(212, 212, 212);*/
-    
-} 
+}
+
+#search-box-mobile {
+    display: inline-block;
+    font-family: 'Jura', sans-serif;
+    width: 100px;
+    color: white;
+    font-size: 20px;
+    padding-bottom: 0px;
+    margin-top: 8px;
+    font-weight: bold;
+}
 
 #header-search-button {
     margin-top: 8px;
@@ -102,9 +119,6 @@ body {
     font-family: 'Jura', sans-serif;
     font-weight: bold;
     padding: 0px 5px;
-	/* font-size: 14px;
-	font-family: "Trench"; 
-	padding: 0px 5px 0px 5px; */
 } 
 
 #header-newthread-button {
@@ -147,17 +161,18 @@ body {
 }
  
 .threadlist-container::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }
 
 .threadlist {
-    margin-left: calc(50% - 400px);
+    margin-left: calc(20%);
 }
 
 .threadlist-threads {
-    width: 800px;
+    width: 70%;
     margin: 5px;
+    border-style: solid;
 }
 
 .threadlist-card-header {
@@ -202,6 +217,7 @@ body {
     font-family: 'Jura', sans-serif !important;
     font-weight: bold;
     padding: 1px 1px;
+    margin-right: 4px;
 }
 
 #thread-new-window-upload-icon {
@@ -264,3 +280,112 @@ body {
     font-family: 'Jura', sans-serif;
     font-weight: bold;
 }
+
+#thread-window-login-button {
+    font-size: 16px;
+    font-family: 'Jura', sans-serif;
+    font-weight: bold;
+    color: white;
+    border-color: white;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.thread-window-login-input {
+    margin-top: 10px;
+    font-size: 16px !important;
+    font-family: 'Jura', sans-serif;
+    font-weight: bold;
+}
+
+.thread-window-login-input input {
+    width: 160px;
+    margin-left: calc(50% - 80px);
+}
+
+.thread-window-button-container {
+    margin-top: 10px;
+    margin-left: calc(50% - 82px);
+}
+
+.styles_modal__gNwvD {
+    background-color: #444444;
+    
+}
+
+.styles_overlay__CLSq- {
+    background: rgba(0, 0, 0, 0.80);
+}
+
+#login-logo-img {
+    -webkit-filter: drop-shadow(1px 1px 0 rgb(109, 167, 253))
+                    drop-shadow(-1px 1px 0 rgb(109, 167, 253))
+                    drop-shadow(1px -1px 0 rgb(109, 167, 253))
+                    drop-shadow(-1px -1px 0 rgb(109, 167, 253));
+
+	filter: drop-shadow(1px 1px 0 rgb(109, 167, 253)) 
+	        drop-shadow(-1px 1px 0 rgb(109, 167, 253))
+		    drop-shadow(1px -1px 0 rgb(109, 167, 253))
+       		drop-shadow(-1px -1px 0 rgb(109, 167, 253));
+}
+
+@media screen and (min-width: 992px) {
+    .header-logo span{
+        display: inline-block;
+    }
+
+    #search-box {
+        display: inline-block;
+    }
+    
+    #search-box-mobile {
+        display: none;
+    }
+
+    .header-search-container {
+        left: 43%;
+        width: 400px;
+    }
+    
+    .MuiInputBase-root-18:before {
+        border-bottom: 1px solid rgba(212, 212, 212, 0.5) !important
+    }
+    
+    .MuiInputBase-root-18:after {
+        border-bottom: 2px solid rgb(252, 253, 255) !important
+    }
+    
+    
+    .threadlist-container {
+        margin-right: 0px;
+        margin-top: 50px;
+        position: absolute;
+        width: 100%;
+        height: calc(100% - 50px);
+        overflow-y: scroll;
+    }
+    
+    .threadlist-container::-webkit-scrollbar {
+        width: 8px;
+    }
+     
+    .threadlist-container::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+    }
+     
+    .threadlist-container::-webkit-scrollbar-thumb {
+        background-color: darkgrey;
+        outline: 1px solid slategrey;
+    }
+    
+    .threadlist {
+        margin-left: calc(50% - 400px);
+    }
+    
+    .threadlist-threads {
+        width: 800px;
+        margin: 5px;
+    }
+    
+}
+

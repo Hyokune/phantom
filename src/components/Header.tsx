@@ -6,13 +6,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
-// import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import * as React from 'react';
 import { Navbar } from 'react-bootstrap';
+// import MediaQuery from 'react-responsive';
 import logo from '../images/phantomLogo.png';
 
 interface IProps {
     searchUser: any,
+    user: any
 }
 
 interface IState {
@@ -36,91 +37,102 @@ export default class Header extends React.Component<IProps, IState, {}> {
 
     public render () {
         return (
-            <Navbar>
-                <div className="header-nav-content">
+                <div>
+                    <Navbar className="app-nav">
+                        <div className="header-nav-content">
 
-                    <div className="header-logo">
-                        <Navbar.Header>
-                            <Navbar.Brand>
-                                <a href='/' >
-                                    <img src={logo} height="35px" width="35px" id="header-logo-img"/>
-                                    <span>PHANTOM</span>
-                                </a>
-                            </Navbar.Brand>
-                        </Navbar.Header>
-                    </div>
+                            <div className="header-logo">
+                                <Navbar.Header>
+                                    <Navbar.Brand>
+                                        <a href='/' >
+                                            <img src={logo} height="35px" width="35px" id="header-logo-img"/>
+                                            <span>PHANTOM</span>
+                                        </a>
+                                    </Navbar.Brand>
+                                </Navbar.Header>
+                            </div>
 
-                    <div className="header-search-container">
-                        <div className="input-group">
-                            <TextField
-                                id="search-user-textbox"
-                                className="search-box"
-                                placeholder="Search for user .."
-                            />
-                            <Button variant="outlined" id="header-search-button" onClick={this.searchUser}>Search</Button>
-                        </div>  
-                    </div>
-
-                    <div className="header-newthread">
-                    <Button variant="outlined" id="header-newthread-button" onClick={this.onOpenModal}>
-                        New Thread
-                        <AddIcon />
-                    </Button>
-                    </div>
-                    
-                    <div>
-                        <Dialog
-                            open={this.state.open}
-                            onClose={this.onCloseModal}
-                            aria-labelledby="thread-new-window-title"
-                        >
-                            <DialogTitle id="thread-new-window-title">Post New Thread</DialogTitle>
-                            <DialogContent>
-                                <DialogContentText id="thread-new-window-text">
-                                    Post a new thread here.
-                                </DialogContentText>
-                                <div className="thread-new-window-label">
+                            <div className="header-search-container">
+                                <div className="input-group">
                                     <TextField
-                                        autoFocus={true}
-                                        margin="normal"
-                                        id="new-title"
-                                        label="Title"
-                                        type="text"
-                                        fullWidth={true}
-                                        
+                                        id="search-box"
+                                        className="search-user-textbox"
+                                        placeholder="Search for user .."
                                     />
-
                                     <TextField
-                                        autoFocus={true}
-                                        margin="normal"
-                                        id="new-content"
-                                        label="Content"
-                                        type="text"
-                                        fullWidth={true}
-                                        
-                                        multiline={true}
-                                        rows={10}
-                                        rowsMax={10}
+                                        id="search-box-mobile"
+                                        className="search-user-textbox"
+                                        placeholder="Username"
                                     />
-                                </div>
-                                <div className="thread-new-window-upload-container">
-                                    <input type="file" onChange={this.handleImageUpload} id="thread-new-image-input" />
-                                    
-                                </div>
-                            </DialogContent>
+                                    <Button variant="outlined" id="header-search-button" onClick={this.searchUser}>Search</Button>
+                                </div>  
+                            </div>
 
-                            <DialogActions>
-                                <Button onClick={this.onCloseModal} id="thread-window-button">
-                                    Cancel
+                            <div className="header-newthread">
+                                <Button variant="outlined" id="header-newthread-button" onClick={this.onOpenModal}>
+                                    <AddIcon id="header-newthread-button-icon"/>
                                 </Button>
-                                <Button onClick={this.postNewThread} id="thread-window-button">
-                                    Confirm
-                                </Button>
-                            </DialogActions>
-                        </Dialog>
-                    </div>
+                            </div>
+                            
+                            <div>
+                                <Dialog
+                                    open={this.state.open}
+                                    onClose={this.onCloseModal}
+                                    aria-labelledby="thread-new-window-title"
+                                >
+                                    <DialogTitle id="thread-new-window-title">Post New Thread</DialogTitle>
+                                    <DialogContent>
+                                        <DialogContentText id="thread-new-window-text">
+                                            Post a new thread here.
+                                        </DialogContentText>
+                                        <div className="thread-new-window-label">
+                                            <TextField
+                                                autoFocus={true}
+                                                margin="normal"
+                                                id="new-title"
+                                                label="Title"
+                                                type="text"
+                                                fullWidth={true}
+                                                
+                                            />
+
+                                            <TextField
+                                                autoFocus={true}
+                                                margin="normal"
+                                                id="new-content"
+                                                label="Content"
+                                                type="text"
+                                                fullWidth={true}
+                                                
+                                                multiline={true}
+                                                rows={10}
+                                                rowsMax={10}
+                                            />
+                                        </div>
+                                        <div className="thread-new-window-upload-container">
+                                            <input type="file" onChange={this.handleImageUpload} id="thread-new-image-input" /> 
+                                        </div>
+                                        
+                                        <br />
+                                        <DialogContentText id="thread-edit-window-text" >
+                                                {this.props.user}
+                                        </ DialogContentText >
+                                    </DialogContent>
+
+                                    <DialogActions>
+                                        <Button onClick={this.onCloseModal} id="thread-window-button">
+                                            Cancel
+                                        </Button>
+                                        <Button onClick={this.postNewThread} id="thread-window-button">
+                                            Confirm
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </div>
+                        </div>
+                    </Navbar>
                 </div>
-            </Navbar>
+
         );
     }
     // Search meme by tag
@@ -153,7 +165,7 @@ export default class Header extends React.Component<IProps, IState, {}> {
             formData.append("Title", title)
             formData.append("Content", content)
             formData.append("Image", imageFile)
-            formData.append("User", "Hades")
+            formData.append("User", this.props.user)
 
             fetch(url, {
                 body: formData,
@@ -175,7 +187,7 @@ export default class Header extends React.Component<IProps, IState, {}> {
 
             formData.append("Title", title)
             formData.append("Content", content)
-            formData.append("User", "Hades")
+            formData.append("User", this.props.user)
 
             fetch(urlnoimg, {
                 body: formData,

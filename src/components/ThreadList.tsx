@@ -18,7 +18,8 @@ import * as React from "react";
 interface IProps {
     error: any,
     threads: any[],
-    value: any
+    value: any,
+    user: any
 }
 
 interface IState {
@@ -77,11 +78,11 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
                                             <Typography className="thread-content" variant="body1" children={thread.content} />
 
                                             <div className="thread-options">
-                                                <Button variant="outlined" id="thread-options-edit" onClick={this.onOpenModal(index)}>
+                                                <Button variant="outlined" disabled={thread.user === this.props.user ? false : true} id="thread-options-edit" onClick={this.onOpenModal(index)}>
                                                     Edit
                                                 </Button>
                                                 
-                                                <IconButton aria-label="Delete" id="thread-options-delete">
+                                                <IconButton aria-label="Delete" disabled={thread.user === this.props.user ? false : true} id="thread-options-delete">
                                                     <DeleteIcon onClick={this.deleteThread.bind(this, thread.id)}/>
                                                 </IconButton>
                                             </div>
@@ -129,7 +130,7 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
                                     />
 
                                     <DialogContentText id="thread-edit-window-text" >
-                                        HADES
+                                        {this.props.user}
                                     </ DialogContentText >
                                 </div>
                             </DialogContent>
