@@ -111,6 +111,7 @@ body {
 }
 
 #header-search-button {
+    display: none;
     margin-top: 8px;
 	margin-left: 10px;
 	color: white;
@@ -120,6 +121,17 @@ body {
     font-weight: bold;
     padding: 0px 5px;
 } 
+#header-search-button-mobile {
+    display: inline-block;
+    margin-top: 8px;
+	margin-left: 10px;
+	color: white;
+	border-color: white;
+    font-size: 14px;
+    font-family: 'Jura', sans-serif;
+    font-weight: bold;
+    padding: 0px 5px;
+}
 
 #header-newthread-button {
     margin-top: 6px;
@@ -165,6 +177,14 @@ body {
     outline: 1px solid slategrey;
 }
 
+.threadlist-error {
+    width: 180px;
+    font-family: 'Jura', sans-serif;
+    font-size: 24px;
+    margin-left: calc(50% - 90px);
+    margin-top: 10px;
+}
+
 .threadlist {
     margin-left: calc(20%);
 }
@@ -198,8 +218,16 @@ body {
     font-weight: bold !important;
 }
 
-.thread-content {
+.thread-content-text {
     font-size: 14px !important;
+}
+
+.empty {
+    height: 40px;
+}
+
+.thread-content {
+    position: relative;
 }
 
 .threadlist-expand-icons {
@@ -207,9 +235,15 @@ body {
     right: 5%;
 }
 
-.thread-options {
+.thread-information {
     position: relative;
-    left: 84%;
+}
+
+.thread-options {
+    position: absolute;
+    width: 140px;
+    bottom: -14px;
+    right: -36px;
 }
 
 #thread-options-edit {
@@ -223,13 +257,10 @@ body {
 #thread-new-window-upload-icon {
     margin-left: 4px;
 }
-/*
-#thread-new-image-input {
-    display: none;
-}*/
 
 #thread-image {
     height: 100px;
+    margin-bottom: 10px;
 }
 
 #thread-edit-window-title h2 {
@@ -355,7 +386,6 @@ body {
         border-bottom: 2px solid rgb(252, 253, 255) !important
     }
     
-    
     .threadlist-container {
         margin-right: 0px;
         margin-top: 50px;
@@ -385,6 +415,14 @@ body {
     .threadlist-threads {
         width: 800px;
         margin: 5px;
+    }
+
+    #header-search-button {
+        display: inline-block;
+    } 
+
+    #header-search-button-mobile {
+        display: none;
     }
     
 }

@@ -31,6 +31,7 @@ export default class Header extends React.Component<IProps, IState, {}> {
         }
 
         this.searchUser = this.searchUser.bind(this)
+        this.searchUserMobile = this.searchUserMobile.bind(this)
         this.handleImageUpload = this.handleImageUpload.bind(this)
         this.postNewThread = this.postNewThread.bind(this)
     }
@@ -59,12 +60,13 @@ export default class Header extends React.Component<IProps, IState, {}> {
                                         className="search-user-textbox"
                                         placeholder="Search for user .."
                                     />
+                                    <Button variant="outlined" id="header-search-button" onClick={this.searchUser}>Search</Button>
                                     <TextField
                                         id="search-box-mobile"
                                         className="search-user-textbox"
                                         placeholder="Username"
                                     />
-                                    <Button variant="outlined" id="header-search-button" onClick={this.searchUser}>Search</Button>
+                                    <Button variant="outlined" id="header-search-button-mobile" onClick={this.searchUserMobile}>Search</Button>
                                 </div>  
                             </div>
 
@@ -103,7 +105,6 @@ export default class Header extends React.Component<IProps, IState, {}> {
                                                 label="Content"
                                                 type="text"
                                                 fullWidth={true}
-                                                
                                                 multiline={true}
                                                 rows={10}
                                                 rowsMax={10}
@@ -120,10 +121,10 @@ export default class Header extends React.Component<IProps, IState, {}> {
                                     </DialogContent>
 
                                     <DialogActions>
-                                        <Button onClick={this.onCloseModal} id="thread-window-button">
+                                        <Button onClick={this.onCloseModal} id="thread-window-button" variant="outlined">
                                             Cancel
                                         </Button>
-                                        <Button onClick={this.postNewThread} id="thread-window-button">
+                                        <Button onClick={this.postNewThread} id="thread-window-button" variant="outlined">
                                             Confirm
                                         </Button>
                                     </DialogActions>
@@ -135,13 +136,26 @@ export default class Header extends React.Component<IProps, IState, {}> {
 
         );
     }
-    // Search meme by tag
+    // Search user
     private searchUser() {
-        const textBox = document.getElementById("search-user-textbox") as HTMLInputElement
+        const textBox = document.getElementById("search-box") as HTMLInputElement
+        
+
         if (textBox === null) {
             return;
         }
-        const user = textBox.value 
+        const user = textBox.value
+        this.props.searchUser(user)  
+    }
+
+    // Search user
+    private searchUserMobile() {
+        const textBoxMobile = document.getElementById("search-box-mobile") as HTMLInputElement
+
+        if (textBoxMobile === null) {
+            return;
+        }
+        const user = textBoxMobile.value
         this.props.searchUser(user)  
     }
     

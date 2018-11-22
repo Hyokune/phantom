@@ -74,17 +74,21 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
                                     <div className="thread-information">
                                         <Divider />
                                         <CardContent>
-                                            <img src={thread.url} id="thread-image" />
-                                            <Typography className="thread-content" variant="body1" children={thread.content} />
-
-                                            <div className="thread-options">
-                                                <Button variant="outlined" disabled={thread.user === this.props.user ? false : true} id="thread-options-edit" onClick={this.onOpenModal(index)}>
-                                                    Edit
-                                                </Button>
-                                                
-                                                <IconButton aria-label="Delete" disabled={thread.user === this.props.user ? false : true} id="thread-options-delete">
-                                                    <DeleteIcon onClick={this.deleteThread.bind(this, thread.id)}/>
-                                                </IconButton>
+                                            <div className="thread-content">
+                                                <img src={thread.url} id="thread-image" />
+                                                <Typography className="thread-content-text" variant="body1" children={thread.content} />
+                                            
+                                                <div className="empty" />
+                                            
+                                                <div className="thread-options">
+                                                    <Button variant="outlined" disabled={thread.user === this.props.user ? false : true} id="thread-options-edit" onClick={this.onOpenModal(index)}>
+                                                        Edit
+                                                    </Button>
+                                                    
+                                                    <IconButton aria-label="Delete" disabled={thread.user === this.props.user ? false : true} id="thread-options-delete">
+                                                        <DeleteIcon onClick={this.deleteThread.bind(this, thread.id)}/>
+                                                    </IconButton>
+                                                </div>
                                             </div>
                                         </CardContent>
                                     </div>
@@ -136,10 +140,10 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
                             </DialogContent>
                                 
                             <DialogActions>
-                                <Button onClick={this.onCloseModal} id="thread-window-button">
+                                <Button onClick={this.onCloseModal} id="thread-window-button" variant="outlined">
                                     Cancel
                                 </Button>
-                                <Button onClick={this.editThread(this.state.selectedThread)} id="thread-window-button">
+                                <Button onClick={this.editThread(this.state.selectedThread)} id="thread-window-button" variant="outlined"> 
                                     Confirm
                                 </Button>
                             </DialogActions>
@@ -150,7 +154,7 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
         )
     };
 
-    public handleClick = (index : any) => () => {
+    private handleClick = (index : any) => () => {
 		this.setState(prevState => { 
 			const data = Object.assign({}, prevState.indexes1) 
 			data[index] = !data[index] 
@@ -158,7 +162,7 @@ export default class ThreadList extends React.Component<IProps, IState, {}> {
         }); 
     }
     
-    public handleShow = (index : any) => () => {
+    private handleShow = (index : any) => () => {
 		this.setState(prevState => { 
 			const data = Object.assign({}, prevState.indexes2) 
 			data[index] = !data[index] 
