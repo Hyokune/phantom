@@ -19,7 +19,7 @@ interface IState {
     value: string,
 }
 
-export default class App extends React.Component<{}, IState> {
+class App extends React.Component<{}, IState> {
 	constructor (props : any) {
 		super(props);
 
@@ -30,7 +30,6 @@ export default class App extends React.Component<{}, IState> {
             threads: [],
             user: "",
             value: "",   
-            
         };
         
         this.fetchThreads("");
@@ -197,3 +196,5 @@ export default class App extends React.Component<{}, IState> {
     }
     
 }
+
+export default App;
